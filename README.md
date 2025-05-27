@@ -67,7 +67,7 @@ AI时代已经来临！
 
 ## 推荐阅读顺序
 
-[相关概念(文档)](notebook/1-相关概念.md) ->  
+[相关概念(文档)](notebook/1-相关概念.md) -> 
 [模型构建(文档)](notebook/2-模型构建.md) -> 
 [(粗读)模型超参数(代码)](script/modeling/model_config.py) -> 
 [(可选)预训练数据下载(代码)](script/pretrain_data_processing/pretrain_data_download.py) ->
@@ -76,6 +76,7 @@ AI时代已经来临！
 [分词器(代码)](script/tokenizer_training/BPE_tokenizer_training.py) -> 
 [(可选)分词器模型(json文件)](model/BPE_tokenizer/) -> 
 [LLM模型整体结构(代码)](script/modeling/model.py) -> 
+[模型超参数(代码)](script/modeling/model_config.py) -> 
 [嵌入层(文档)](notebook/4-嵌入层.md) ->
 [正则化(文档)](notebook/5-正则化.md) ->
 [位置编码(文档)](notebook/6-位置编码.md) ->
