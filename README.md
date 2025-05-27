@@ -64,3 +64,49 @@ AI时代已经来临！
     - [分词器模型训练](script/tokenizer_training/BPE_tokenizer_training.py)
     - [模型结构](script/modeling)
     - [模型训练](script/training)
+
+
+## 推荐阅读顺序
+
+[相关概念(文档)](notebook/1-相关概念.md) ->  
+[模型构建(文档)](notebook/2-模型构建.md) -> 
+[(粗读)模型超参数(代码)](script/modeling/model_config.py) -> 
+[(可选)预训练数据下载(代码)](script/pretrain_data_processing/pretrain_data_download.py) ->
+[(可选)预训练数据处理(代码)](script/pretrain_data_processing/pretrain_data_generate.py) -> 
+[分词器(文档)](notebook/3-分词器.md) -> 
+[分词器(代码)](script/tokenizer_training/BPE_tokenizer_training.py) -> 
+[(可选)分词器模型(json文件)](model/BPE_tokenizer/) -> 
+[LLM模型整体结构(代码)](script/modeling/model.py) -> 
+[嵌入层(文档)](notebook/4-嵌入层.md) ->
+[正则化(文档)](notebook/5-正则化.md) ->
+[位置编码(文档)](notebook/6-位置编码.md) ->
+[位置编码(代码)](script/modeling/model_utils/RoPE.py) ->
+[归一化(文档)](notebook/7-归一化.md) ->
+[归一化(代码)](script/modeling/model_utils/Normalization.py) ->
+[线性层(文档)](notebook/8-线性层.md) ->
+[激活函数(文档)](notebook/13-激活函数.md) ->
+[解码器(文档)](notebook/9-解码器模块.md) ->
+[解码器(代码)](script/modeling/model_utils/DecoderBlock.py)
+[多头掩码自注意力机制(文档)](notebook/10-多头掩码自注意力机制.md) ->
+[多头掩码自注意力机制(代码)](script/modeling/model_utils/Attention.py) ->
+[Flash Attention(文档)](notebook/22-FlashAttention.md) ->
+[MOE前馈神经网络(文档)](notebook/11-MOE前馈神经网络.md) ->
+[MOE前馈神经网络(代码)](script/modeling/model_utils/MoE.py) ->
+[输出结果类(代码)](script/modeling/model_utils/Output.py) ->
+[预训练数据加载(代码)](script/pretrain_data_processing/pretrain_data_load.py) ->
+[交叉熵损失函数(文档)](notebook/12-交叉熵损失函数.md) ->
+[信息量、熵、交叉熵、KL散度等(文档)](notebook/17-信息量、熵、交叉熵、KL散度等.md) ->
+[优化器(文档)](notebook/14-优化器.md) ->
+[(复习)模型构建(文档)](notebook/2-模型构建.md) -> 
+[预训练(代码)](script/training/train_pretrain.py) ->
+[SFT(代码)](script/training/train_sft.py) ->
+[人类反馈强化学习(文档)](notebook/20-人类反馈强化学习.md) ->
+[人类反馈强化学习(代码)](script/training/train_rlhf.py) ->
+[LoRA微调(代码)](script/training/train_lora.py) ->
+[知识蒸馏(代码)](script/training/train_kd.py) ->
+[推理模型训练(代码)](script/training/train_reasoning.py)
+[(可选)分类模型评价指标(文档)](notebook/15-分类模型评价指标.md) ->
+[(可选)梯度消失与梯度爆炸(文档)](notebook/18-梯度消失与梯度爆炸.md) ->
+[(可选)非极大抑制算法(文档)](notebook/19-非极大抑制算法.md) ->
+[(可选)GPT和BERT(文档)](notebook/21-GPT和BERT.md) ->
+[(可选)Q-Former(文档)](notebook/23-Q-Former.md)
