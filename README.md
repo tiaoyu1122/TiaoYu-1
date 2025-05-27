@@ -65,7 +65,6 @@ AI时代已经来临！
     - [模型结构](script/modeling)
     - [模型训练](script/training)
 
-
 ## 推荐阅读顺序
 
 [相关概念(文档)](notebook/1-相关概念.md) ->  
@@ -110,3 +109,5 @@ AI时代已经来临！
 [(可选)非极大抑制算法(文档)](notebook/19-非极大抑制算法.md) ->
 [(可选)GPT和BERT(文档)](notebook/21-GPT和BERT.md) ->
 [(可选)Q-Former(文档)](notebook/23-Q-Former.md)
+
+**喜欢的小伙伴可以点个 🌟，以促进 LLM 技术的进一步普及，谢谢！**
