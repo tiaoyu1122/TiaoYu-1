@@ -56,15 +56,61 @@ AI时代已经来临！
  - 本项目**仅供学习交流之用，承诺不用于商业用途**。
 
 ## 项目内容
-- [LLM相关知识点总结](notebook)
-- [模型代码](script)
-    - [预训练数据处理和加载](script/pretrain_data_processing)
-    - [SFT数据加载](script/sft_data_processing)
-    - [DPO数据加载](script/dpo_data_processing)
-    - [分词器模型训练](script/tokenizer_training/BPE_tokenizer_training.py)
-    - [模型结构](script/modeling)
-    - [模型训练](script/training)
 
+- [模型代码](script)：script/
+    - 数据处理：
+        - [预训练数据处理和加载](script/pretrain_data_processing)：script/pretrain_data_processing
+            - [预训练数据下载(示例)](script/sft_data_processing/pretrain_data_download.py)：script/sft_data_processing/pretrain_data_download.py
+            - [预训练数据生成(示例)](script/sft_data_processing/pretrain_data_generate.py)：script/sft_data_processing/pretrain_data_generate.py
+            - [预训练数据加载(用于模型训练)](script/pretrain_data_processing/pretrain_data_load.py)：script/pretrain_data_processing/pretrain_data_load.py
+        - [SFT数据加载(用于模型训练)](script/sft_data_processing/sft_data_load.py)：script/sft_data_processing/sft_data_load.py
+        - [DPO数据加载(用于模型训练)](script/dpo_data_processing/dpo_data_load.py)：script/dpo_data_processing/dpo_data_load.py
+    - [分词器模型训练](script/tokenizer_training/BPE_tokenizer_training.py)：  script/tokenizer_training/BPE_tokenizer_training.py
+        - [训练之后的分词器模型(为便于理解模型的输入，建议看一下)](model/BPE_tokenizer/)：model/BPE_tokenizer/
+    - [模型](script/modeling)
+        - [模型配置](script/modeling/model_config.py)：script/modeling/model_config.py
+        - [模型主结构](script/modeling/model.py)：script/modeling/model.py
+            - [位置编码](script/modeling/model_utils/RoPE.py)：script/modeling/model_utils/RoPE.py
+            - [解码器模块](script/modeling/model_utils/DecoderBlock.py)：script/modeling/model_utils/DecoderBlock.py
+            - [多头掩码自注意力机制](script/modeling/model_utils/Attention.py)：script/modeling/model_utils/Attention.py
+            - [MOE前馈神经网络](script/modeling/model_utils/MoE.py)：script/modeling/model_utils/MoE.py
+            - [归一化层](script/modeling/model_utils/Normalization.py)：script/modeling/model_utils/Normalization.py
+            - [输出结果类](script/modeling/model_utils/Output.py)：script/modeling/model_utils/Output.py
+    - [模型训练](script/training)
+        - [预训练](script/training/train_pretrain.py)：script/training/train_pretrain.py
+        - [有监督微调](script/training/train_sft.py)：script/training/train_sft.py
+        - [人类反馈强化学习](script/training/train_dpo.py)：script/training/train_dpo.py
+        - [LoRA微调](script/training/train_lora.py)：script/training/train_lora.py
+        - [推理模型训练](script/training/train_reasoning.py)：script/training/train_reasoning.py
+        - [知识蒸馏](script/training/train_kd.py)：script/training/train_kd.py
+ - [LLM相关知识点总结](notebook)
+    - [相关概念](notebook/1-相关概念.md): notebook/1-相关概念.md
+    - [模型构建](notebook/2-模型构建.md): notebook/2-模型构建.md
+    - [分词器](notebook/3-分词器.md): notebook/3-分词器.md
+    - [嵌入层](notebook/4-嵌入层.md): notebook/4-嵌入层.md
+    - [正则化](notebook/5-正则化.md): notebook/5-正则化.md
+    - [位置编码](notebook/6-位置编码.md): notebook/6-位置编码.md
+    - [归一化](notebook/7-归一化.md): notebook/7-归一化.md
+    - [线性层](notebook/8-线性层.md): notebook/8-线性层.md
+    - [激活函数](notebook/13-激活函数.md): notebook/13-激活函数.md
+    - [解码器模块](notebook/9-解码器模块.md): notebook/9-解码器模块.md
+    - [多头掩码自注意力机制](notebook/10-多头掩码自注意力机制.md): notebook/10-多头掩码自注意力机制.md
+    - [MOE前馈神经网络](notebook/11-MOE前馈神经网络.md): notebook/11-MOE前馈神经网络.md
+    - [交叉熵损失](notebook/12-交叉熵损失.md): notebook/12-交叉熵损失.md
+    - [激活函数](notebook/13-激活函数.md): notebook/13-激活函数.md
+    - [优化器](notebook/14-优化器.md): notebook/14-优化器.md
+    - [分类模型评价指标](notebook/15-分类模型评价指标.md): notebook/15-分类模型评价指标.md
+    - [Python装饰器简介](notebook/16-Python装饰器简介.md): notebook/16-Python装饰器简介.md
+    - [信息量、熵、交叉熵、KL散度等](notebook/17-信息量、熵、交叉熵、KL散度等.md): notebook/17-信息量、熵、交叉熵、KL散度等.md
+    - [梯度消失与梯度爆炸](notebook/18-梯度消失与梯度爆炸.md): notebook/18-梯度消失与梯度爆炸.md
+    - [非极大抑制算法](notebook/19-非极大抑制算法.md): notebook/19-非极大抑制算法.md
+    - [人类反馈强化学习](notebook/20-人类反馈强化学习.md): notebook/20-人类反馈强化学习.md
+    - [GPT和BERT](notebook/21-GPT和BERT.md): notebook/21-GPT和BERT.md
+    - [Flash Attention](notebook/22-FlashAttention.md): notebook/22-FlashAttention.md
+    - [Q-Former](notebook/23-Q-Former.md): notebook/23-Q-Former.md
+ - [(不用看)图片(notebook等的插图)](images)：images/
+ - [(只看分词器模型)模型文件(其他为空)](model)：model/
+ 
 ## 推荐阅读顺序
 
 [相关概念(文档)](notebook/1-相关概念.md) -> 
