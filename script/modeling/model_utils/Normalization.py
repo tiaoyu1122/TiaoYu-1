@@ -2,6 +2,8 @@ import torch           # 导入PyTorch库
 from torch import nn   # 导入PyTorch的神经网络模块
 
 """
+配合"notebook/7-归一化.md"文档进行阅读.
+
 这里定义了两个类：LayerNorm和RMSNorm.
 (1) LayerNorm类实现了层归一化操作.
 (2) RMSNorm类实现了RMS归一化操作.

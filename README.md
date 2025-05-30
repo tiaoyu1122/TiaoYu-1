@@ -83,7 +83,7 @@ AI时代已经来临！
         - [LoRA微调](script/training/train_lora.py)：script/training/train_lora.py
         - [推理模型训练](script/training/train_reasoning.py)：script/training/train_reasoning.py
         - [知识蒸馏](script/training/train_kd.py)：script/training/train_kd.py
- - [LLM相关知识点总结(markdown公式显示有问题的，可以找同名的pdf文件)](notebook)
+ - [LLM相关知识点总结(markdown公式显示有问题的，可以找同名的.pdf或.png文件)](notebook)
     - [相关概念](notebook/1-相关概念.md): notebook/1-相关概念.md
     - [模型构建](notebook/2-模型构建.md): notebook/2-模型构建.md
     - [分词器](notebook/3-分词器.md): notebook/3-分词器.md

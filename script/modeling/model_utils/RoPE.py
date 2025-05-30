@@ -3,6 +3,7 @@ from typing import Tuple  # 导入Tuple类型注解，用于表示一个元组�
 
 """
 这里直接引用了 LLaMA 中对旋转位置编码的官方实现(https://github.com/meta-llama/llama3/blob/main/llama/model.py).
+配合"notebook/6-位置编码.md"文档中的原理介绍, 可以更好地理解。
 在 LLaMA 中，旋转位置编码是通过预先计算的方式实现的，而不是在训练过程中动态计算。具体实现过程为:
 (1) 基于 precompute_freqs_cis(dim, end, theta) 函数预先计算(足够长的)位置编码的复数形式笛卡尔坐标 freqs_cis.
     - 计算旋转角度;

@@ -25,6 +25,7 @@ except ImportError:
     USE_FAIRSCALE = False
 
 
+# 这里定义了TIAOYU模型，建议配合"notebook/2-模型构建.md"文档中的“模型构架”部分阅读(尤其是先将那个构架图记在脑海中，然后再阅读代码，理解各部分的作用)
 class TIAOYU(PreTrainedModel):
     """
     定义TIAOYU模型, 继承自PreTrainedModel。
@@ -55,30 +56,32 @@ class TIAOYU(PreTrainedModel):
         self.tiaoyu_config = tiaoyu_config     
 
         # 2. 初始化模型各层
-        # (1) 嵌入层
-        if USE_FAIRSCALE:
+        # (1) 嵌入层(配合"notebook/4-嵌入层.md"文档阅读)
+        if USE_FAIRSCALE: # 使用fairscale的并行词嵌入层(只是提醒大家可以使用并行方式进行计算，不是必须的，后续深入学习的时候可以进一步了解)
             self.Embedding = VocabParallelEmbedding(num_embeddings=tiaoyu_config.vocab_size, # 词汇表大小
                                                     embedding_dim=tiaoyu_config.embed_dim)   # 每个嵌入向量的维度
         else:
             self.Embedding = nn.Embedding(num_embeddings=tiaoyu_config.vocab_size, # 词汇表大小
                                           embedding_dim=tiaoyu_config.embed_dim)   # 每个嵌入向量的维度
-        # (2) Dropout层
+        # (2) Dropout层(配合"notebook/5-正则化.md"文档阅读)
         self.Dropout = nn.Dropout(p=tiaoyu_config.Dropout_p)   # p定义了每个神经元被丢弃的概率
         # (3) 预计算旋转位置编码矩阵(因为不是torch.nn.Parameter 对象, 所以不会在反向传播时参与优化)
+        # (配合"notebook/6-位置编码.md"文档和"script/modeling/model_utils/RoPE.py"代码阅读)
         self.freqs_cis = precompute_freqs_cis(dim=tiaoyu_config.embed_dim // tiaoyu_config.head_num,  # 输入维度大小, 可以理解成embedding的维度
                                               end=tiaoyu_config.max_seq_len,                          # 结束位置索引, 为序列的最大长度
                                               theta=tiaoyu_config.RoPE_theta)                         # 旋转位置编码的参数theta
         # (4) 解码器层列表(每个解码器层又由自注意力层和前馈神经网络层组成)
         # nn.ModuleList 是一个容器, 用于存储一系列模型层, 它可以方便地添加、删除和访问模型层.
         # 这里创建了一个包含tiaoyu_config.layer_num个DecoderBlock的列表
+        # (配合"notebook/9-解码器模块.md"文档和"script/modeling/model_utils/DecoderBlock.py"代码阅读)
         self.Blocks = nn.ModuleList()
         for layer_id in range(tiaoyu_config.layer_num):
             self.Blocks.append(DecoderBlock(layer_id=layer_id, decoder_config=tiaoyu_config))
-        # (5) 归一化层
+        # (5) 归一化层(配合"notebook/7-归一化.md"文档和"script/modeling/model_utils/Normalization.py"代码阅读)
         self.Norm = RMSNorm(dim=tiaoyu_config.embed_dim,     # 输入维度大小, 可以理解成embedding的维度
                             epsilon=tiaoyu_config.Norm_epsilon)  # 归一化层中的epsilon值
-        # (6) 输出层
-        if USE_FAIRSCALE:
+        # (6) 输出层(配合"notebook/8-线性层.md"文档阅读)
+        if USE_FAIRSCALE: # # 使用fairscale的并行(只是提醒大家可以使用并行方式进行计算，不是必须的，后续深入学习的时候可以进一步了解)
             self.Linear = ColumnParallelLinear(input_size=tiaoyu_config.embed_dim,    # 输入特征的维度
                                                output_size=tiaoyu_config.vocab_size,  # 输出特征的维度
                                                bias=False)                            # 是否使用偏置项
@@ -90,10 +93,10 @@ class TIAOYU(PreTrainedModel):
         if self.tiaoyu_config.tied_weights: 
             self.Embedding.weight = self.Linear.weight
         
-        # 3. 初始化输出对象(用于存储模型前向传播的输出)
+        # 3. 初始化输出对象(用于存储模型前向传播的输出)(配合"script/modeling/model_utils/Output.py"代码)
         self.Output = TiaoyuCausalLMOutputWithPast()
     
-    # 前向传播函数
+    # 前向传播函数(本质上就是将上面__init__函数中定义的那些层(计算方法)组合起来，从输入开始一步步往后计算(默认调用forward进行计算)，直到输出)
     def forward(self,
                 token_id: Optional[torch.Tensor] = None,
                 start_position: int = 0,
@@ -119,7 +122,7 @@ class TIAOYU(PreTrainedModel):
         if cache_v is None:
             cache_v = [None] * self.tiaoyu_config.layer_num
 
-        # 1. 将输入的token_id转换为嵌入向量，并应用dropout(token_id->嵌入层->Dropout-h).
+        # 1. 将输入的token_id转换为嵌入向量，并应用dropout(token_id->嵌入层->Dropout->h).
         h = self.Dropout(self.Embedding(token_id))
 
         # 2. 从预计算的旋转位置编码复数形式笛卡尔坐标中截取合适的长度(起始位置为start_position，长度为token_id的长度)
@@ -167,7 +170,7 @@ class TIAOYU(PreTrainedModel):
         self.Output.__setitem__('cache_v', cache_v)    # 将 cache_v 添加到 self.Output 中
         return self.Output
 
-    # 生成函数
+    # 生成函数(这里可以先不用看，在模型构建和训练阶段实际用不到，实在使用模型进行对话的时候才会用到，看明白上面的，这里就很容易理解了)
     @torch.inference_mode() # 该装时期确保在调用相应的函数时，所有的张量操作都被置于推理模式(inference mode)
     def generate(self, 
                  token_id: Optional[torch.Tensor],  # 输入的token ID
@@ -243,7 +246,7 @@ class TIAOYU(PreTrainedModel):
         # 5. 将生成的token ID列表转换为张量, 并返回
         return torch.cat(generated_token_id, dim=0)
     
-    # 流式生成函数
+    # 流式生成函数(这里可以先不用看，在模型构建和训练阶段实际用不到，实在使用模型进行对话的时候才会用到，看明白上面的，这里就很容易理解了)
     def _stream(self, 
                 token_id,            # 输入的token ID
                 use_kv_cache,        # 是否使用缓存

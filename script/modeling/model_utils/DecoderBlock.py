@@ -10,7 +10,7 @@ from model_utils.MoE import MOEFeedForward          # 导入MOEFeedForward类，
 from model_config import TiaoyuConfig               # 导入TiaoyuConfig类，用于配置模型参数
 
 
-# 定义解码器块类DecoderBlock，继承自nn.Module
+# 定义解码器块类DecoderBlock，继承自nn.Module(配合"notebook/9-解码器模块.md"文档阅读)
 class DecoderBlock(nn.Module):
     def __init__(self, 
                  layer_id: int,                  # 解码器块的编号
@@ -23,12 +23,12 @@ class DecoderBlock(nn.Module):
         # (1) 初始化解码器块的参数
         self.embed_dim = decoder_config.embed_dim    # 模型的嵌入维度
         
-        # (2) 初始化解码器块的组件之————注意力机制
+        # (2) 初始化解码器块的组件之————注意力机制(配合"notebook/10-多头掩码自注意力机制.md"文档和"script/modeling/model_utils/Attention.py"代码阅读)
         self.Attention_norm = RMSNorm(dim=decoder_config.embed_dim, 
                                       epsilon=decoder_config.Norm_epsilon)    # 创建RMSNorm归一化实例，在执行注意力计算之前对输入进行归一化操作
         self.Attention = Attention(decoder_config=decoder_config)                            # 创建注意力机制的实例
         
-        # (3) 初始化解码器块的组件之————前馈神经网络
+        # (3) 初始化解码器块的组件之————前馈神经网络(配合"notebook/11-MOE前馈神经网络.md"文档和"script/modeling/model_utils/MoE.py"代码阅读)
         self.Feed_forward_norm = RMSNorm(dim=decoder_config.embed_dim, 
                                          epsilon=decoder_config.Norm_epsilon) # 创建RMSNorm归一化实例，在MOE前馈神经网络之前对输入进行归一化操作
         self.Moe_feed_forward = MOEFeedForward(decoder_config)                # 创建MOE前馈神经网络的实例

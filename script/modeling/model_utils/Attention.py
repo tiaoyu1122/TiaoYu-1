@@ -48,7 +48,8 @@ def repeat_kv(x: torch.Tensor, rep_times: int) -> torch.Tensor:
     )
 
 
-# 定义注意力机制类Attention，继承自nn.Module
+# 定义注意力机制类Attention，继承自nn.Module(配合"notebook/10-多头掩码自注意力机制.md"文档阅读)
+
 class Attention(nn.Module):
     def __init__(self, 
                  decoder_config: TiaoyuConfig):

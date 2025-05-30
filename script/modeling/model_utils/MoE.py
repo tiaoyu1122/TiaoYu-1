@@ -25,6 +25,7 @@ except ImportError:
     USE_FAIRSCALE = False
 from transformers.activations import ACT2FN
 
+# 配合"notebook/11-MOE前馈神经网络.md"文档阅读
 
 # 定义一个专家(基础的前馈神经网络 FeedForward)，在后续 MOEFeedForward 中使用
 class FeedForward(nn.Module):
