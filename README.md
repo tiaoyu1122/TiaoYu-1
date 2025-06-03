@@ -157,4 +157,11 @@ AI时代已经来临！
 [(可选)GPT和BERT(文档)](notebook/21-GPT和BERT.md) ->
 [(可选)Q-Former(文档)](notebook/23-Q-Former.md)
 
+## 交流
+欢迎扫码加入微信交流群：
+
+<div align="center">
+<img src="./images/WechatIMG.jpg" alt="logo" width="200">
+</div>
+
 **喜欢的小伙伴可以点个 🌟，以促进 LLM 技术的进一步普及，谢谢！**
