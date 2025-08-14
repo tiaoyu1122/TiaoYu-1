@@ -50,7 +50,7 @@ AI时代已经来临！
 
  - 本项目是站在巨人的肩膀之上，**参照甚至照搬**了诸多优秀开源项目(如minimind、Steel_LLM、llama3等，尤其是minimind)，并力求使代码尽可能地更加通俗易懂，更适合新手学习。
  - 本项目的几乎每一行代码(一些重复的代码除外)都添加了**注释**，详细介绍了代码的作用，方便阅读与理解。
- - 本项目基本上覆盖了常见 LLM 模型的**全部训练流程**，包括：预训练、有监督微调(SFT)、人类反馈强化学习(ELHF)、LoRA微调、推理模型训练(Reasoning)、知识蒸馏(KD)等。
+ - 本项目基本上覆盖了常见 LLM 模型的**全部训练流程**，包括：预训练、有监督微调(SFT)、人类反馈强化学习(RLHF)、LoRA微调、推理模型训练(Reasoning)、知识蒸馏(KD)等。
  - 本项目**不提供现成的训练数据**，感兴趣的同学可以参照 script/pretrain_data_processing/pretrain_data_download.py和script/pretrain_data_processing/pretrain_data_generate.py 进行数据收集和处理。
  - 本项目对 LLM 模型的一些**关键知识点**进行了总结和梳理(借鉴和照搬了网络上的公开资料)，详见 notebook 下的 markdown 文件。
  - 本项目**仅供学习交流之用，承诺不用于商业用途**。
